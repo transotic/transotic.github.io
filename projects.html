@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects - transotic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="glow" aria-hidden="true"></div>
+<div class="pl" role="group" aria-label="Music player">
+  <button aria-label="Play or pause"><svg viewBox="0 0 24 24" id="pp"></svg></button>
+  <div class="t"><b></b><small></small></div>
+  <button class="sk" id="nx" aria-label="Next song"><svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg></button>
+  <div class="bar"></div>
+</div>
+<nav class="dock" aria-label="Main">
+  <a href="index.html">Home</a>
+  <a href="works.html">Works</a>
+  <a href="projects.html" aria-current="page">Projects</a>
+  <a href="experience.html">Experience</a>
+  <a href="contact.html">Contact</a>
+</nav>
+<main class="wrap">
+<h1 class="page-title">Pro<span class="holo">jects</span></h1>
+<p class="lead">Things I’m building. Tap a filter.</p>
+<div class="chips">
+  <button class="chip" data-f="all" aria-pressed="true">All</button>
+  <button class="chip" data-f="games" aria-pressed="false">Games</button>
+  <button class="chip" data-f="web" aria-pressed="false">Websites</button>
+</div>
+<div class="grid">
+  <article class="card" data-k="games" style="--c:var(--pink)"><span class="pill">Game</span><div><h3>Top-down action game</h3><p>Describe it here.</p></div></article>
+  <article class="card" data-k="web" style="--c:var(--cyan)"><span class="pill">Website</span><div><h3>This site</h3><p>Built by hand and hosted on GitHub Pages.</p></div></article>
+  <article class="card" data-k="games" style="--c:var(--lemon)"><span class="pill">Game</span><div><h3>Another idea</h3><p>Describe it here.</p></div></article>
+</div>
+</main>
+<script src="script.js"></script>
+</body>
+</html>

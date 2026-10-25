@@ -1,0 +1,69 @@
+:root{--bg:#f3efff;--ink:#15123a;--muted:#5d5985;--card:#fff;--pink:#ff6fb5;--cyan:#4fd8ff;--lemon:#f7ff7a;--mx:50%;
+--holo:linear-gradient(110deg,#ff6fb5,#ffb86f,#f7ff7a,#7affc9,#4fd8ff,#a78bff,#ff6fb5)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.05rem/1.65 "Figtree",system-ui,sans-serif;overflow-x:hidden;animation:in .5s ease both}
+body.out{opacity:0;transition:opacity .2s}
+@keyframes in{from{opacity:0;transform:translateY(10px)}}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.wrap{max-width:980px;margin:0 auto;padding:6.5rem 1.5rem 9rem}
+h1,h2,h3{font-family:"Unbounded",sans-serif;font-weight:700;line-height:1.05;letter-spacing:-.03em;margin:0}
+.glow{position:fixed;width:420px;height:420px;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,rgba(79,216,255,.35),transparent 65%);transform:translate(-50%,-50%);left:50%;top:40%}
+.wrap,.dock,.pl{position:relative;z-index:2}
+
+/* Holographic wordmark */
+.holo{background:var(--holo);background-size:300% 100%;background-position:var(--mx) 0;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.mark{font-size:clamp(3.2rem,15vw,10rem);margin:2rem 0 1rem;display:block;user-select:none}
+.mark span{display:inline-block;transition:transform .25s cubic-bezier(.3,1.8,.5,1)}
+.mark span:hover{transform:translateY(-.12em) rotate(-6deg) scale(1.1)}
+.lead{font-size:1.3rem;max-width:34rem;color:var(--muted)}
+.tag{display:inline-block;background:var(--ink);color:#fff;border-radius:999px;padding:.3rem 1rem;font-size:.85rem;font-weight:600}
+
+/* Dock nav */
+.dock{position:fixed;left:50%;bottom:1.2rem;transform:translateX(-50%);display:flex;gap:.3rem;padding:.45rem;background:rgba(255,255,255,.7);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1.5px solid var(--ink);border-radius:999px;z-index:30;max-width:calc(100vw - 1rem)}
+.dock a{text-decoration:none;font-weight:600;font-size:.9rem;padding:.55rem 1rem;border-radius:999px;transition:background .2s,transform .2s;white-space:nowrap}
+.dock a:hover{transform:translateY(-3px);background:var(--lemon)}
+.dock a[aria-current]{background:var(--ink);color:#fff}
+
+/* Player */
+.pl{position:fixed;top:1rem;right:1rem;z-index:30;display:flex;align-items:center;gap:.4rem;background:var(--ink);color:#fff;border-radius:999px;padding:.35rem .5rem .35rem .4rem;max-width:260px;overflow:hidden}
+.pl button{border:0;background:var(--holo);background-size:300% 100%;width:34px;height:34px;border-radius:50%;cursor:pointer;display:grid;place-items:center;color:var(--ink);flex:none}
+.pl button.sk{background:none;color:#fff;width:28px;height:28px}
+.pl svg{width:16px;height:16px;fill:currentColor}
+.pl .t{font-size:.78rem;line-height:1.2;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;min-width:0}
+.pl .t small{opacity:.7;display:block}
+.pl .bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--holo)}
+
+/* Stickers */
+.stickers{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.st{position:absolute;pointer-events:auto;cursor:grab;touch-action:none;user-select:none;display:grid;place-items:center;font-weight:700;text-align:center;transition:transform .2s}
+.st:active{cursor:grabbing;transform:scale(1.1) rotate(6deg)}
+.s1{width:110px;height:110px;background:var(--pink);clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);right:12%;top:14%}
+.s2{width:130px;height:80px;background:var(--cyan);border-radius:999px;right:26%;top:52%;border:2px solid var(--ink);font-size:.85rem;transform:rotate(-8deg)}
+.s3{width:90px;height:90px;background:var(--lemon);border-radius:50% 50% 50% 8%;right:8%;top:62%;border:2px solid var(--ink);font-size:1.6rem}
+
+/* Cards, rows, chips */
+.page-title{font-size:clamp(2.2rem,8vw,5rem);margin-bottom:.8rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;margin-top:2.5rem;perspective:900px}
+.card{background:var(--card);border:2px solid var(--ink);border-radius:1.6rem;padding:1.4rem;min-height:210px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .15s ease-out,box-shadow .2s;box-shadow:6px 6px 0 var(--c,var(--pink))}
+.card:hover{box-shadow:10px 10px 0 var(--c,var(--pink))}
+.card h3{font-size:1.3rem;margin-bottom:.4rem}
+.card p{margin:0;color:var(--muted);font-size:.95rem}
+.card .pill{align-self:flex-start;font-size:.75rem;font-weight:600;background:var(--ink);color:#fff;border-radius:999px;padding:.2rem .8rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+.chip{font:600 .9rem "Figtree",sans-serif;background:var(--card);color:var(--ink);border:2px solid var(--ink);border-radius:999px;padding:.4rem 1.1rem;cursor:pointer;transition:transform .15s}
+.chip:hover{transform:translateY(-3px)}
+.chip[aria-pressed="true"]{background:var(--ink);color:#fff}
+.card.hide{display:none}
+.line{border-left:3px solid var(--ink);margin:2.5rem 0 0 .6rem;padding-left:1.8rem}
+.step{position:relative;padding:0 0 2.2rem;cursor:default}
+.step::before{content:"";position:absolute;left:calc(-1.8rem - 10px);top:.35rem;width:17px;height:17px;border-radius:50%;background:var(--bg);border:3px solid var(--ink);transition:background .2s,transform .2s}
+.step:hover::before{background:var(--pink);transform:scale(1.4)}
+.step b{font-family:"Unbounded",sans-serif;font-size:1.05rem}
+.step small{display:block;color:var(--muted);font-weight:600}
+.big{font:700 clamp(1.4rem,5vw,3rem)/1.1 "Unbounded",sans-serif;word-break:break-all;display:block;margin:2rem 0 1rem}
+.btn{font:600 1rem "Figtree",sans-serif;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:.8rem 1.5rem;cursor:pointer;transition:transform .15s,background .2s}
+.btn:hover{transform:scale(1.06) rotate(-1.5deg);background:#3a2fa8}
+@media(max-width:620px){.pl{max-width:200px;top:.6rem;right:.6rem}.dock a{padding:.5rem .65rem;font-size:.8rem}.s1,.s3{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}

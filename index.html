@@ -6,231 +6,35 @@
 <title>transotic</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Archivo:wght@500;800&display=swap" rel="stylesheet">
-<style>
-  :root { --blue:#1a14b8; --lime:#d4f50c; --dark:#0e0e10; --ink:#fff; }
-  * { box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-  body { margin:0; background:var(--dark); color:var(--ink); font:500 .9rem/1.5 "Archivo",system-ui,sans-serif; overflow-x:hidden; }
-  a { color:inherit; text-decoration:none; }
-  :focus-visible { outline:2px solid var(--lime); outline-offset:3px; }
-  .wide { font-family:"Syncopate",sans-serif; text-transform:uppercase; }
-
-  /* ---------- Stage: blue band + dark hero + glass ring ---------- */
-  .stage { position:relative; height:max(100vh,640px); overflow:hidden; }
-  .band { position:relative; z-index:3; height:240px; background:var(--blue); padding:1.4rem 2.2rem;
-    background-image:radial-gradient(rgba(255,255,255,.12) 1px,transparent 1.5px); background-size:6px 6px; }
-  .band h1 { margin:0; font:400 clamp(1.4rem,2.6vw,2rem)/1 "Syncopate",sans-serif; letter-spacing:.9em; }
-  .band ul { list-style:none; margin:1.4rem 0; padding:0; font-weight:500; font-size:.74rem; text-transform:uppercase; line-height:1.45; }
-  .band b { font-weight:800; }
-  .photo { position:absolute; inset:240px 0 0 0; z-index:1; background:radial-gradient(circle at 25% 60%,#2a2a33,#0e0e10 70%); }
-  .photo img { width:100%; height:100%; object-fit:cover; object-position:30% 30%; filter:brightness(.8); }
-  .photo p { position:absolute; left:2.2rem; bottom:2rem; margin:0; color:#777; font-size:.75rem; max-width:20rem; }
-
-  nav.menu { position:absolute; z-index:5; left:1.6rem; top:300px; display:flex; flex-direction:column; gap:1.25rem; }
-  nav.menu a { font:400 .62rem "Syncopate",sans-serif; letter-spacing:.55em; text-transform:uppercase; transition:letter-spacing .3s,color .3s; padding:.2rem 0; }
-  nav.menu a:hover, nav.menu a:focus-visible { letter-spacing:.9em; color:var(--lime); }
-
-  .ring { position:absolute; z-index:2; right:-8vw; top:-14vh; width:min(98vh,70vw); aspect-ratio:1; border-radius:50%;
-    background:rgba(190,190,210,.14); backdrop-filter:blur(14px) saturate(120%); -webkit-backdrop-filter:blur(14px) saturate(120%);
-    border:1.5px solid rgba(255,255,255,.35); transition:transform .25s ease-out; }
-  .hole { position:absolute; z-index:2; right:-14vw; bottom:-12vh; width:min(62vh,44vw); aspect-ratio:1; border-radius:50%;
-    border:10px solid rgba(190,190,210,.25); backdrop-filter:blur(2px); transition:transform .25s ease-out; }
-  .blade { position:absolute; z-index:4; right:0; bottom:0; width:min(46vw,640px); transition:transform .25s ease-out; }
-  .blade path { fill:var(--lime); }
-
-  /* ---------- Music player ---------- */
-  .player { position:fixed; z-index:20; right:1.2rem; bottom:1.2rem; width:min(340px,calc(100vw - 2.4rem)); padding:.9rem 1.1rem;
-    background:rgba(150,170,10,.82); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-radius:1.2rem; border:1px solid rgba(255,255,255,.25); font-size:.72rem; }
-  .player .top { display:flex; align-items:center; gap:.5rem; }
-  .player .meta { flex:1; min-width:0; }
-  .player .title { font:800 .9rem "Archivo",sans-serif; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .player .artist { opacity:.8; }
-  .player button { background:none; border:0; color:#fff; cursor:pointer; padding:.3rem; display:grid; place-items:center; border-radius:50%; transition:transform .15s; }
-  .player button:hover { transform:scale(1.2); }
-  .player svg { width:20px; height:20px; fill:currentColor; }
-  .bar { display:flex; align-items:center; gap:.6rem; margin-top:.5rem; }
-  #prog { flex:1; height:4px; background:rgba(255,255,255,.3); border-radius:2px; cursor:pointer; position:relative; }
-  #fill { position:absolute; left:0; top:0; bottom:0; width:0; background:#fff; border-radius:2px; }
-  #vol { width:100px; accent-color:#fff; height:4px; }
-
-  /* ---------- Content sections ---------- */
-  section { padding:5rem 2.2rem; max-width:1100px; margin:0 auto; }
-  section h2 { font:400 clamp(1.1rem,2.4vw,1.6rem)/1.2 "Syncopate",sans-serif; letter-spacing:.5em; text-transform:uppercase; margin:0 0 2.5rem; }
-  section h2 i { font-style:normal; color:var(--lime); }
-  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; }
-  .tile { position:relative; aspect-ratio:4/3; background:#1a1a20; border:1px solid #2c2c36; overflow:hidden; display:flex; align-items:flex-end; padding:1rem; transition:transform .3s,border-color .3s; cursor:pointer; }
-  .tile::before { content:""; position:absolute; inset:0; background:var(--lime); transform:translateY(100%); transition:transform .35s cubic-bezier(.7,0,.2,1); }
-  .tile:hover::before { transform:none; }
-  .tile:hover { border-color:var(--lime); transform:translateY(-4px); }
-  .tile span { position:relative; transition:color .3s; font:400 .7rem "Syncopate",sans-serif; letter-spacing:.3em; text-transform:uppercase; }
-  .tile:hover span { color:#0e0e10; }
-  .rows { border-top:1px solid #2c2c36; }
-  .row { display:grid; grid-template-columns:90px 1fr auto; gap:1rem; padding:1.1rem .5rem; border-bottom:1px solid #2c2c36; text-transform:uppercase; font-size:.8rem; transition:background .25s,color .25s,padding .25s; }
-  .row:hover { background:var(--lime); color:#0e0e10; padding-left:1.2rem; }
-  .row b { font-weight:800; }
-  .cv { display:inline-block; border:1.5px solid var(--lime); color:var(--lime); padding:.9rem 1.6rem; font:400 .65rem "Syncopate",sans-serif; letter-spacing:.4em; text-transform:uppercase; transition:background .25s,color .25s; }
-  .cv:hover { background:var(--lime); color:#0e0e10; }
-  footer { padding:3rem 2.2rem 7rem; color:#777; font-size:.75rem; text-align:center; }
-
-  #dot { position:fixed; z-index:50; width:14px; height:14px; border-radius:50%; background:var(--lime); pointer-events:none; mix-blend-mode:difference; transform:translate(-50%,-50%); transition:width .2s,height .2s; }
-  #dot.big { width:44px; height:44px; }
-
-  @media (max-width:700px) {
-    .band { padding:1.2rem 1.2rem; } .band h1 { letter-spacing:.6em; }
-    nav.menu { left:1.2rem; } .row { grid-template-columns:70px 1fr; } .row span:last-child { display:none; }
-    #vol { width:70px; } .blade { width:80vw; }
-  }
-  @media (pointer:coarse) { #dot { display:none; } }
-  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none !important; } html { scroll-behavior:auto; } }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="dot" aria-hidden="true"></div>
-
-<div class="stage" id="top">
-  <div class="band">
-    <h1>TRANS</h1>
-    <ul>
-      <li>’25 Your first role here</li>
-      <li>’25 Another role or club</li>
-      <li>’26 <b>Your title</b> ✦</li>
-      <li>’26 Something you’re proud of</li>
-    </ul>
-    <h1>OTIC</h1>
-  </div>
-
-  <div class="photo">
-    <!-- Put a photo called photo.jpg next to index.html and it shows up here -->
-    <img src="photo.jpg" alt="Portrait of transotic" onerror="this.style.display='none'">
-    <p>Add a photo named photo.jpg to your repo and it will fill this space.</p>
-  </div>
-
-  <nav class="menu" aria-label="Main">
-    <a href="#works">Past works /</a>
-    <a href="#experience">Experience /</a>
-    <a href="#projects">Projects /</a>
-    <a href="#cv">CV /</a>
-  </nav>
-
-  <div class="ring" id="ring"></div>
-  <div class="hole" id="hole"></div>
-  <svg class="blade" id="blade" viewBox="0 0 640 520" aria-hidden="true">
-    <path d="M0 0 C 110 190, 300 300, 640 190 L 640 520 L 330 520 C 180 400, 60 220, 0 0 Z"/>
-  </svg>
+<div class="glow" aria-hidden="true"></div>
+<div class="pl" role="group" aria-label="Music player">
+  <button aria-label="Play or pause"><svg viewBox="0 0 24 24" id="pp"></svg></button>
+  <div class="t"><b></b><small></small></div>
+  <button class="sk" id="nx" aria-label="Next song"><svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg></button>
+  <div class="bar"></div>
 </div>
-
-<section id="works">
-  <h2>Past works <i>/</i></h2>
-  <div class="grid">
-    <a class="tile" href="#"><span>Work one</span></a>
-    <a class="tile" href="#"><span>Work two</span></a>
-    <a class="tile" href="#"><span>Work three</span></a>
-    <a class="tile" href="#"><span>Work four</span></a>
-  </div>
-</section>
-
-<section id="experience">
-  <h2>Experience <i>/</i></h2>
-  <div class="rows">
-    <div class="row"><span>2026</span><b>Your title</b><span>Where you did it</span></div>
-    <div class="row"><span>2025</span><b>Another role</b><span>Where you did it</span></div>
-    <div class="row"><span>2025</span><b>Something else</b><span>Where you did it</span></div>
-  </div>
-</section>
-
-<section id="projects">
-  <h2>Projects <i>/</i></h2>
-  <div class="grid">
-    <a class="tile" href="#"><span>Game project</span></a>
-    <a class="tile" href="#"><span>Website</span></a>
-    <a class="tile" href="#"><span>Experiment</span></a>
-  </div>
-</section>
-
-<section id="cv">
-  <h2>CV <i>/</i></h2>
-  <a class="cv" href="cv.pdf">Download CV</a>
-</section>
-
-<footer>&copy; <span id="year"></span> transotic</footer>
-
-<div class="player" role="group" aria-label="Music player">
-  <div class="top">
-    <div class="meta"><div class="title" id="ttl"></div><div class="artist" id="art"></div></div>
-    <button id="prev" aria-label="Previous track"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zM9.5 12 18 18V6z"/></svg></button>
-    <button id="play" aria-label="Play"><svg viewBox="0 0 24 24" id="ico"></svg></button>
-    <button id="next" aria-label="Next track"><svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg></button>
-  </div>
-  <div class="bar"><span id="cur">0:00</span><div id="prog" aria-label="Seek"><div id="fill"></div></div><span id="dur">0:00</span></div>
-  <div class="bar"><svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff"><path d="M3 9v6h4l5 5V4L7 9zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z"/></svg><input id="vol" type="range" min="0" max="1" step=".05" value=".7" aria-label="Volume"></div>
+<nav class="dock" aria-label="Main">
+  <a href="index.html" aria-current="page">Home</a>
+  <a href="works.html">Works</a>
+  <a href="projects.html">Projects</a>
+  <a href="experience.html">Experience</a>
+  <a href="contact.html">Contact</a>
+</nav>
+<main class="wrap">
+<div class="stickers" aria-hidden="false">
+  <div class="st s1" role="img" aria-label="Star sticker">drag</div>
+  <div class="st s2" role="img" aria-label="Pill sticker">move me</div>
+  <div class="st s3" role="img" aria-label="Blob sticker">:)</div>
 </div>
-
-<script>
-(function () {
-  var $ = function (id) { return document.getElementById(id); };
-  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  $("year").textContent = new Date().getFullYear();
-
-  /* Parallax: ring, hole and blade drift with the mouse */
-  if (!reduce) addEventListener("pointermove", function (e) {
-    var x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
-    $("ring").style.transform = "translate(" + x * -40 + "px," + y * -40 + "px)";
-    $("hole").style.transform = "translate(" + x * 30 + "px," + y * 30 + "px)";
-    $("blade").style.transform = "translate(" + x * 60 + "px," + y * 40 + "px) rotate(" + x * 4 + "deg)";
-  });
-
-  /* Lime cursor dot */
-  var dot = $("dot");
-  addEventListener("pointermove", function (e) { dot.style.left = e.clientX + "px"; dot.style.top = e.clientY + "px"; });
-  document.querySelectorAll("a,button,.tile,.row").forEach(function (el) {
-    el.addEventListener("pointerenter", function () { dot.classList.add("big"); });
-    el.addEventListener("pointerleave", function () { dot.classList.remove("big"); });
-  });
-
-  /* Music player.
-     To play real music: upload an mp3 to your repo and put its file name in src below.
-     Tracks with src: "" run a pretend timer so you can see how the player works. */
-  var tracks = [
-    { t: "Your song title", a: "Artist name", d: 210, src: "" },
-    { t: "Another song", a: "Another artist", d: 185, src: "" }
-  ];
-  var i = 0, playing = false, pos = 0, timer, audio = new Audio();
-  audio.volume = .7;
-  var PLAY = "M8 5v14l11-7z", PAUSE = "M6 5h4v14H6zM14 5h4v14h-4z";
-  function fmt(s) { s = Math.floor(s); return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); }
-  function dur() { return tracks[i].src && audio.duration ? audio.duration : tracks[i].d; }
-  function cur() { return tracks[i].src ? audio.currentTime : pos; }
-  function draw() {
-    $("ttl").textContent = tracks[i].t; $("art").textContent = tracks[i].a;
-    $("ico").innerHTML = '<path d="' + (playing ? PAUSE : PLAY) + '"/>';
-    $("play").setAttribute("aria-label", playing ? "Pause" : "Play");
-    $("cur").textContent = fmt(cur()); $("dur").textContent = fmt(dur());
-    $("fill").style.width = Math.min(100, cur() / dur() * 100) + "%";
-  }
-  function load() { pos = 0; if (tracks[i].src) { audio.src = tracks[i].src; if (playing) audio.play(); } draw(); }
-  function toggle() {
-    playing = !playing;
-    if (tracks[i].src) { playing ? audio.play() : audio.pause(); }
-    draw();
-  }
-  function step(n) { i = (i + n + tracks.length) % tracks.length; load(); }
-  timer = setInterval(function () {
-    if (playing && !tracks[i].src) { pos += .25; if (pos >= tracks[i].d) step(1); }
-    draw();
-  }, 250);
-  audio.addEventListener("ended", function () { step(1); });
-  $("play").addEventListener("click", toggle);
-  $("prev").addEventListener("click", function () { step(-1); });
-  $("next").addEventListener("click", function () { step(1); });
-  $("vol").addEventListener("input", function (e) { audio.volume = +e.target.value; });
-  $("prog").addEventListener("click", function (e) {
-    var r = this.getBoundingClientRect(), f = (e.clientX - r.left) / r.width;
-    if (tracks[i].src) audio.currentTime = f * dur(); else pos = f * dur(); draw();
-  });
-  if (tracks[0].src) audio.src = tracks[0].src;
-  draw();
-})();
-</script>
+<span class="tag">Hi, I’m</span>
+<h1 class="mark holo">transotic</h1>
+<p class="lead">I make games, websites and other things that move when you poke them. Tell people here what you’re working on right now.</p>
+<p style="margin-top:2rem"><a class="btn" href="works.html" style="text-decoration:none;display:inline-block">See my work</a></p>
+</main>
+<script src="script.js"></script>
 </body>
 </html>
