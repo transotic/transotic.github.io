@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>transotic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ede9ff;
+    --ink: #1f1a3d;
+    --muted: #5b5580;
+    --pink: #ff4f8b;
+    --mint: #7ae6c4;
+    --sun: #ffd166;
+    --card: #ffffff;
+    --accent: var(--pink);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #1d1838; --ink: #f3f0ff; --muted: #b5aee0; --card: #2a2450; }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "DM Sans", system-ui, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 1.5rem; }
+
+  nav { display: flex; justify-content: space-between; padding: 1.5rem 0; font-weight: 500; }
+  nav a { text-decoration: none; margin-left: 1.25rem; }
+  nav a:first-child { margin-left: 0; }
+  nav a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 6px; text-decoration-thickness: 3px; }
+
+  .hero { padding: 4rem 0 5rem; }
+  .wordmark {
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-weight: 800;
+    font-size: clamp(3.5rem, 15vw, 9.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin: 0;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    padding: 0;
+    color: var(--ink);
+    text-align: left;
+  }
+  .wordmark span { display: inline-block; transition: transform .25s, color .25s; }
+  .wordmark:hover span:nth-child(odd) { transform: translateY(-0.08em) rotate(-4deg); color: var(--accent); }
+  .wordmark:hover span:nth-child(even) { transform: translateY(0.05em) rotate(3deg); }
+  .tagline { max-width: 34rem; font-size: 1.25rem; color: var(--muted); margin: 1.5rem 0 2rem; }
+  .hint { font-size: .9rem; color: var(--muted); }
+
+  .btn {
+    display: inline-block;
+    background: var(--accent);
+    color: #1f1a3d;
+    font-weight: 500;
+    padding: .8rem 1.4rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform .15s;
+  }
+  .btn:hover { transform: scale(1.04); }
+
+  section { padding: 3rem 0; }
+  h2 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 2.2rem; letter-spacing: -0.02em; margin: 0 0 1rem; }
+  .about p { max-width: 38rem; }
+
+  .projects { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .project {
+    background: var(--card);
+    border-radius: 1.5rem 0.5rem 1.5rem 0.5rem;
+    padding: 1.5rem;
+    border-top: 8px solid var(--c);
+  }
+  .project h3 { font-family: "Bricolage Grotesque", sans-serif; margin: 0 0 .5rem; font-size: 1.4rem; }
+  .project p { margin: 0; color: var(--muted); }
+
+  .contact a { font-weight: 500; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 5px; }
+  footer { padding: 3rem 0 4rem; color: var(--muted); font-size: .9rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav aria-label="Main">
+    <a href="#top">transotic</a>
+    <div><a href="#about">About</a><a href="#projects">Projects</a><a href="#contact">Contact</a></div>
+  </nav>
+
+  <header class="hero" id="top">
+    <button class="wordmark" id="wordmark" aria-label="transotic. Click to change colour."></button>
+    <p class="tagline">I make things on the internet. Games, websites and whatever I get curious about next.</p>
+    <a class="btn" href="#projects">See my projects</a>
+    <p class="hint">Tip: click the big name.</p>
+  </header>
+
+  <section class="about" id="about">
+    <h2>About</h2>
+    <p>Hi, I'm transotic. Write a couple of sentences about yourself here: what you like, what you're learning, and what you're building right now.</p>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects">
+      <article class="project" style="--c: var(--pink)">
+        <h3>Project one</h3>
+        <p>A short description of something you made. What is it, and what did you learn?</p>
+      </article>
+      <article class="project" style="--c: var(--mint)">
+        <h3>Project two</h3>
+        <p>Another thing you made. Add a link to it when it's ready.</p>
+      </article>
+      <article class="project" style="--c: var(--sun)">
+        <h3>Project three</h3>
+        <p>Coming soon. Replace this card with your next idea.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Contact</h2>
+    <p>Say hi: <a href="https://github.com/transotic">github.com/transotic</a></p>
+  </section>
+
+  <footer>&copy; <span id="year"></span> transotic</footer>
+</div>
+
+<script>
+  // Split the wordmark into letters so they can wiggle
+  var wm = document.getElementById("wordmark");
+  "transotic".split("").forEach(function (ch) {
+    var s = document.createElement("span");
+    s.textContent = ch;
+    s.setAttribute("aria-hidden", "true");
+    wm.appendChild(s);
+  });
+
+  // Click the name to cycle the accent colour
+  var colours = ["#ff4f8b", "#2fbf94", "#f0a500", "#7b61ff"];
+  var i = 0;
+  wm.addEventListener("click", function () {
+    i = (i + 1) % colours.length;
+    document.documentElement.style.setProperty("--accent", colours[i]);
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
