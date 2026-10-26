@@ -1,6 +1,6 @@
 (function(){
 /* Turn any feature off by changing its 1 to a 0 */
-var F={dots:1,water:1,magnetic:1,scramble:1,tilt:1,wipe:1,scroll:1};
+var F={dots:1,water:0,magnetic:1,scramble:1,tilt:1,wipe:1,scroll:1};
 
 var $=function(s,r){return(r||document).querySelector(s)},$$=function(s,r){return[].slice.call((r||document).querySelectorAll(s))};
 var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches,root=document.documentElement;
