@@ -6,30 +6,33 @@
 <title>Contact - transotic</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="glow" aria-hidden="true"></div>
+<div class="spot" aria-hidden="true"></div>
+<div id="ring" aria-hidden="true"></div>
+<header class="top">
+  <a class="brand" href="index.html">transotic &copy;26</a>
+  <nav aria-label="Main">
+    <a href="works.html" data-n="01">Works</a>
+    <a href="projects.html" data-n="02">Projects</a>
+    <a href="experience.html" data-n="03">Experience</a>
+    <a href="contact.html" data-n="04" aria-current="page">Contact</a>
+  </nav>
+</header>
+<main class="wrap">
+  <h1 class="title">Get in <em>touch</em></h1>
+  <p class="sub">Questions, ideas or collabs.</p>
+  <a class="big" id="mail" href="mailto:you@example.com">you@example.com</a><br>
+  <button class="btn" id="copy">Copy email</button>
+</main>
 <div class="pl" role="group" aria-label="Music player">
   <button aria-label="Play or pause"><svg viewBox="0 0 24 24" id="pp"></svg></button>
   <div class="t"><b></b><small></small></div>
-  <button class="sk" id="nx" aria-label="Next song"><svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg></button>
+  <button id="nx" aria-label="Next song"><svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg></button>
   <div class="bar"></div>
 </div>
-<nav class="dock" aria-label="Main">
-  <a href="index.html">Home</a>
-  <a href="works.html">Works</a>
-  <a href="projects.html">Projects</a>
-  <a href="experience.html">Experience</a>
-  <a href="contact.html" aria-current="page">Contact</a>
-</nav>
-<main class="wrap">
-<h1 class="page-title">Say <span class="holo">hi</span></h1>
-<p class="lead">Got a question or an idea? Send me a message.</p>
-<span class="big" id="mail">you@example.com</span>
-<button class="btn" id="copy">Copy email</button>
-</main>
 <script src="script.js"></script>
 </body>
 </html>

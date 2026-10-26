@@ -6,33 +6,36 @@
 <title>Experience - transotic</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="glow" aria-hidden="true"></div>
+<div class="spot" aria-hidden="true"></div>
+<div id="ring" aria-hidden="true"></div>
+<header class="top">
+  <a class="brand" href="index.html">transotic &copy;26</a>
+  <nav aria-label="Main">
+    <a href="works.html" data-n="01">Works</a>
+    <a href="projects.html" data-n="02">Projects</a>
+    <a href="experience.html" data-n="03" aria-current="page">Experience</a>
+    <a href="contact.html" data-n="04">Contact</a>
+  </nav>
+</header>
+<main class="wrap">
+  <h1 class="title"><em>Experience</em></h1>
+  <p class="sub">Roles, clubs and things I have been part of.</p>
+  <div class="rows">
+    <div class="row rv"><span class="n">2026</span><h3>Your newest role</h3><span class="m">Where / What</span><span class="go"></span></div>
+    <div class="row rv"><span class="n">2025</span><h3>Another role</h3><span class="m">Where / What</span><span class="go"></span></div>
+    <div class="row rv"><span class="n">2024</span><h3>Where it started</h3><span class="m">Where / What</span><span class="go"></span></div>
+  </div>
+</main>
 <div class="pl" role="group" aria-label="Music player">
   <button aria-label="Play or pause"><svg viewBox="0 0 24 24" id="pp"></svg></button>
   <div class="t"><b></b><small></small></div>
-  <button class="sk" id="nx" aria-label="Next song"><svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg></button>
+  <button id="nx" aria-label="Next song"><svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg></button>
   <div class="bar"></div>
 </div>
-<nav class="dock" aria-label="Main">
-  <a href="index.html">Home</a>
-  <a href="works.html">Works</a>
-  <a href="projects.html">Projects</a>
-  <a href="experience.html" aria-current="page">Experience</a>
-  <a href="contact.html">Contact</a>
-</nav>
-<main class="wrap">
-<h1 class="page-title">Expe<span class="holo">rience</span></h1>
-<p class="lead">Roles, clubs and things I’ve been part of.</p>
-<div class="line">
-  <div class="step"><b>Your newest role</b><small>2026</small><p>One sentence about what you did.</p></div>
-  <div class="step"><b>Another role</b><small>2025</small><p>One sentence about what you did.</p></div>
-  <div class="step"><b>Where it started</b><small>2024</small><p>One sentence about what you did.</p></div>
-</div>
-</main>
 <script src="script.js"></script>
 </body>
 </html>

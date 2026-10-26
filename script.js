@@ -1,51 +1,38 @@
 (function(){
 var $=function(s,r){return(r||document).querySelector(s)},$$=function(s,r){return[].slice.call((r||document).querySelectorAll(s))};
-var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches,root=document.documentElement;
+var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches,root=document.documentElement,ring=$("#ring");
 
-/* Cursor glow + holo colour follows the mouse */
-var glow=$(".glow");
+/* Spotlight, metallic sheen and cursor ring all follow the mouse */
 addEventListener("pointermove",function(e){
   root.style.setProperty("--mx",(e.clientX/innerWidth*100)+"%");
-  if(glow&&!reduce){glow.style.left=e.clientX+"px";glow.style.top=e.clientY+"px"}
+  root.style.setProperty("--sx",e.clientX+"px");root.style.setProperty("--sy",e.clientY+"px");
+  if(ring){ring.style.left=e.clientX+"px";ring.style.top=e.clientY+"px"}
+});
+$$("a,button,.row").forEach(function(el){
+  el.addEventListener("pointerenter",function(){ring&&ring.classList.add("big")});
+  el.addEventListener("pointerleave",function(){ring&&ring.classList.remove("big")});
 });
 
-/* Split the wordmark into letters */
-var mk=$(".mark");
-if(mk){var w=mk.textContent;mk.textContent="";mk.setAttribute("aria-label",w);
-  w.split("").forEach(function(c){var s=document.createElement("span");s.textContent=c;s.setAttribute("aria-hidden","true");s.className="holo";mk.appendChild(s)});
-  mk.classList.remove("holo")}
-
-/* Smooth page fade when clicking between pages */
+/* Fade between pages */
 $$("a[href]").forEach(function(a){
   var h=a.getAttribute("href");
   if(!h||h.charAt(0)==="#"||/^(https?:|mailto:)/.test(h))return;
-  a.addEventListener("click",function(e){e.preventDefault();document.body.classList.add("out");setTimeout(function(){location.href=h},200)});
+  a.addEventListener("click",function(e){e.preventDefault();document.body.classList.add("out");setTimeout(function(){location.href=h},220)});
 });
 
-/* Draggable stickers */
-$$(".st").forEach(function(el){
-  var dx,dy,drag=false;
-  el.addEventListener("pointerdown",function(e){drag=true;el.setPointerCapture(e.pointerId);
-    var r=el.getBoundingClientRect(),p=el.offsetParent.getBoundingClientRect();
-    dx=e.clientX-r.left;dy=e.clientY-r.top;el.style.right="auto";el.style.left=(r.left-p.left)+"px";el.style.top=(r.top-p.top)+"px"});
-  el.addEventListener("pointermove",function(e){if(!drag)return;var p=el.offsetParent.getBoundingClientRect();
-    el.style.left=(e.clientX-p.left-dx)+"px";el.style.top=(e.clientY-p.top-dy)+"px"});
-  el.addEventListener("pointerup",function(){drag=false});
-});
+/* Reveal on scroll */
+var rv=$$(".rv");
+if("IntersectionObserver" in window&&!reduce){
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}})},{threshold:.15});
+  rv.forEach(function(el,i){el.style.transitionDelay=(i%6)*70+"ms";io.observe(el)});
+}else rv.forEach(function(el){el.classList.add("in")});
 
-/* Card tilt */
-if(!reduce)$$(".card").forEach(function(c){
-  c.addEventListener("pointermove",function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
-    c.style.transform="rotateY("+x*10+"deg) rotateX("+-y*10+"deg)"});
-  c.addEventListener("pointerleave",function(){c.style.transform=""});
-});
-
-/* Filter chips */
-$$(".chip[data-f]").forEach(function(b){
+/* Filters */
+$$(".f button").forEach(function(b){
   b.addEventListener("click",function(){
-    $$(".chip[data-f]").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});
+    $$(".f button").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});
     var f=b.getAttribute("data-f");
-    $$(".card[data-k]").forEach(function(c){c.classList.toggle("hide",f!=="all"&&c.getAttribute("data-k")!==f)});
+    $$(".row[data-k]").forEach(function(r){r.classList.toggle("hide",f!=="all"&&r.getAttribute("data-k")!==f)});
   });
 });
 
@@ -53,12 +40,12 @@ $$(".chip[data-f]").forEach(function(b){
 var cp=$("#copy");
 if(cp)cp.addEventListener("click",function(){
   var t=$("#mail").textContent;
-  (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){cp.textContent="Copied!"},function(){cp.textContent="Press Ctrl+C"});
+  (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){cp.textContent="Copied"},function(){cp.textContent="Press Ctrl+C"});
   setTimeout(function(){cp.textContent="Copy email"},1800);
 });
 
 /* ---------- Music player (keeps its place between pages) ----------
-   Add real songs by uploading an mp3 to the "music" folder and filling in src.
+   To add a song: upload an mp3 into a "music" folder in your repo and set src.
    Only use music you own or have permission to share. */
 var tracks=[
   {t:"Your song title",a:"Artist",d:200,src:""},
