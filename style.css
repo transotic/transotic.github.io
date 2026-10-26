@@ -22,10 +22,10 @@ a{color:inherit;text-decoration:none}
 .top .brand{color:var(--ink)}
 .top .brand::before{content:none}
 
-.wrap{position:relative;z-index:2;max-width:1120px;margin:0 auto;padding:8rem 2rem 8rem}
+.wrap{position:relative;z-index:2;max-width:1120px;margin:0 auto;padding:6.5rem 2rem 8rem}
 
 /* Hero */
-.hero{min-height:calc(100vh - 8rem);display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:3rem}
+.hero{display:flex;flex-direction:column;padding:1rem 0 3rem}
 .meta{color:var(--muted);margin:0 0 1rem}
 .mark{font:italic 400 clamp(4.2rem,19vw,16rem)/.82 "Instrument Serif",serif;letter-spacing:-.045em;margin:0;padding-right:.05em;
   background:linear-gradient(100deg,#4a4a58 calc(var(--mx) - 35%),#b9c4ff calc(var(--mx) - 12%),#fff var(--mx),#ffc9f0 calc(var(--mx) + 12%),#4a4a58 calc(var(--mx) + 35%));
@@ -82,3 +82,19 @@ a{color:inherit;text-decoration:none}
  .row{grid-template-columns:40px 1fr 24px}.row .m{display:none}.row p{grid-column:2/4}.pl{left:1rem;bottom:1rem}.top .brand{display:none}}
 @media(pointer:coarse){#ring{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+.snap{margin-top:3.5rem}
+.cvrow{display:grid;grid-template-columns:170px 1fr;gap:1rem;padding:1.5rem 0;border-top:1px solid var(--line)}
+.cvrow:last-of-type{border-bottom:1px solid var(--line)}
+.cvrow .lb{font-family:"JetBrains Mono",monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding-top:.35rem}
+.cvrow p{margin:0;max-width:40rem}
+.cvrow ul{margin:0;padding-left:1.1rem;color:var(--muted);columns:2;column-gap:2rem}
+.cvrow li{margin-bottom:.3rem;break-inside:avoid}
+.cvrow a.u{background:linear-gradient(var(--acc),var(--acc)) 0 100%/100% 1px no-repeat;padding-bottom:2px}
+.acts{display:flex;gap:1rem;flex-wrap:wrap;margin:0 0 3rem}
+.empty{border:1px dashed var(--line);padding:3rem 2rem;color:var(--muted)}
+.empty h3{font:italic 400 clamp(1.8rem,5vw,3rem)/1.1 "Instrument Serif",serif;color:var(--ink);margin:0 0 .6rem}
+@media(max-width:700px){.cvrow{grid-template-columns:1fr}.cvrow ul{columns:1}}
+.intro{max-width:44rem;margin:1.5rem 0 4.5rem}
+.intro p{font-size:1.15rem;line-height:1.7;margin:0 0 1.2rem}
+.lbl{font-family:"JetBrains Mono",monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 1.2rem}

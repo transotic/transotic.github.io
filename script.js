@@ -16,7 +16,7 @@ $$("a,button,.row").forEach(function(el){
 /* Fade between pages */
 $$("a[href]").forEach(function(a){
   var h=a.getAttribute("href");
-  if(!h||h.charAt(0)==="#"||/^(https?:|mailto:)/.test(h))return;
+  if(!h||h.charAt(0)==="#"||/^(https?:|mailto:)/.test(h)||/\.pdf$/.test(h)||a.hasAttribute("download"))return;
   a.addEventListener("click",function(e){e.preventDefault();document.body.classList.add("out");setTimeout(function(){location.href=h},220)});
 });
 
